@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Package, Box3D } from 'lucide-react';
+import { Package, Box } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
