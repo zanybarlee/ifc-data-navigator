@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Package, Cube3d } from 'lucide-react';
+import { Package, Box3D } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
@@ -9,7 +8,6 @@ interface IFCViewerProps {
   data: any[];
 }
 
-// Basic cube component to represent IFC objects
 const SimpleObject = ({ position = [0, 0, 0], color = "blue", scale = 1 }) => {
   return (
     <mesh position={position as [number, number, number]}>
@@ -19,9 +17,7 @@ const SimpleObject = ({ position = [0, 0, 0], color = "blue", scale = 1 }) => {
   );
 };
 
-// Scene component that contains all the 3D elements
 const Scene = ({ data }: { data: any[] }) => {
-  // Check if data is empty
   if (!data || data.length === 0) {
     return (
       <>
@@ -37,22 +33,12 @@ const Scene = ({ data }: { data: any[] }) => {
   
   return (
     <>
-      {/* Ambient light */}
       <ambientLight intensity={0.5} />
-      {/* Directional light */}
       <directionalLight position={[10, 10, 10]} intensity={1} />
-      
-      {/* Camera and controls */}
       <PerspectiveCamera makeDefault position={[10, 10, 10]} />
       <OrbitControls enableZoom={true} enablePan={true} enableRotate={true} />
-      
-      {/* Grid helper for orientation */}
       <gridHelper args={[20, 20]} />
-      
-      {/* Center reference cube */}
       <SimpleObject position={[0, 0, 0]} color="red" scale={1.5} />
-      
-      {/* Distribute objects in space based on data */}
       {data.map((item, index) => {
         const angle = (index / Math.max(data.length, 1)) * Math.PI * 2;
         const radius = 5;
@@ -60,7 +46,6 @@ const Scene = ({ data }: { data: any[] }) => {
         const z = Math.sin(angle) * radius;
         const y = item.level ? item.level : 0;
         
-        // Use different colors based on item type
         let color;
         switch ((item.type || '').toLowerCase()) {
           case 'door': color = 'brown'; break;
@@ -74,7 +59,6 @@ const Scene = ({ data }: { data: any[] }) => {
           default: color = 'green';
         }
         
-        // Scale based on dimensions if available
         const scale = item.dimensions 
           ? (item.dimensions.width + item.dimensions.height + item.dimensions.depth) / 3 
           : 0.8;
@@ -97,7 +81,6 @@ const IFCViewer: React.FC<IFCViewerProps> = ({ data }) => {
   const [hasError, setHasError] = useState(false);
   
   useEffect(() => {
-    // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 500);
@@ -105,7 +88,6 @@ const IFCViewer: React.FC<IFCViewerProps> = ({ data }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Error boundary for Canvas component
   const handleError = () => {
     console.error("Error rendering 3D scene");
     setHasError(true);
