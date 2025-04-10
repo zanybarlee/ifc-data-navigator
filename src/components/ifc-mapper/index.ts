@@ -6,6 +6,7 @@ import MappingSuggestions from './MappingSuggestions';
 import MissingDataHandler from './MissingDataHandler';
 import ReviewConfirmation from './ReviewConfirmation';
 import StepIndicator from './StepIndicator';
+import IFCViewer from './IFCViewer';
 
 export {
   Layout,
@@ -14,5 +15,6 @@ export {
   MappingSuggestions,
   MissingDataHandler,
   ReviewConfirmation,
-  StepIndicator
+  StepIndicator,
+  IFCViewer
 };

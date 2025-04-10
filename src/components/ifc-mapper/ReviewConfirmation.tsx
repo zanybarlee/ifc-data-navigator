@@ -10,6 +10,7 @@ import {
   TableRow 
 } from '@/components/ui/table';
 import { Progress } from '@/components/ui/progress';
+import IFCViewer from './IFCViewer';
 
 interface ReviewConfirmationProps {
   processedData: any[];
@@ -69,69 +70,77 @@ const ReviewConfirmation: React.FC<ReviewConfirmationProps> = ({
         <Progress value={completionPercentage} className="h-2" />
       </div>
       
-      {incompleteItemsCount > 0 && (
-        <div className="bg-yellow-50 rounded-lg p-4 mb-6 flex items-start">
-          <AlertTriangle size={20} className="text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
-          <div>
-            <h3 className="font-medium text-yellow-800">Incomplete Data</h3>
-            <p className="text-sm text-yellow-700 mt-1">
-              Some items have missing information. You can still export, but the resulting 
-              IFC-SG data may be incomplete.
-            </p>
-          </div>
-        </div>
-      )}
-      
-      {incompleteItemsCount === 0 && (
-        <div className="bg-green-50 rounded-lg p-4 mb-6 flex items-start">
-          <Check size={20} className="text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-          <div>
-            <h3 className="font-medium text-green-800">Complete Data</h3>
-            <p className="text-sm text-green-700 mt-1">
-              All items have complete information and are ready for export to IFC-SG format.
-            </p>
-          </div>
-        </div>
-      )}
-      
-      <div className="border rounded-lg overflow-hidden mb-6">
-        <div className="max-h-80 overflow-y-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>IFC Entity</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {processedData.map((item) => {
-                const isMissing = missingData[item.id] && missingData[item.id].length > 0;
-                
-                return (
-                  <TableRow key={item.id}>
-                    <TableCell className="font-medium">{item.name}</TableCell>
-                    <TableCell>{item.type}</TableCell>
-                    <TableCell>{item.ifcType}</TableCell>
-                    <TableCell>
-                      {isMissing ? (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                          <AlertTriangle size={12} className="mr-1" />
-                          Incomplete
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          <Check size={12} className="mr-1" />
-                          Ready
-                        </span>
-                      )}
-                    </TableCell>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="space-y-6">
+          {incompleteItemsCount > 0 && (
+            <div className="bg-yellow-50 rounded-lg p-4 flex items-start">
+              <AlertTriangle size={20} className="text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-medium text-yellow-800">Incomplete Data</h3>
+                <p className="text-sm text-yellow-700 mt-1">
+                  Some items have missing information. You can still export, but the resulting 
+                  IFC-SG data may be incomplete.
+                </p>
+              </div>
+            </div>
+          )}
+          
+          {incompleteItemsCount === 0 && (
+            <div className="bg-green-50 rounded-lg p-4 flex items-start">
+              <Check size={20} className="text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-medium text-green-800">Complete Data</h3>
+                <p className="text-sm text-green-700 mt-1">
+                  All items have complete information and are ready for export to IFC-SG format.
+                </p>
+              </div>
+            </div>
+          )}
+          
+          <div className="border rounded-lg overflow-hidden">
+            <div className="max-h-[350px] overflow-y-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>IFC Entity</TableHead>
+                    <TableHead>Status</TableHead>
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                </TableHeader>
+                <TableBody>
+                  {processedData.map((item) => {
+                    const isMissing = missingData[item.id] && missingData[item.id].length > 0;
+                    
+                    return (
+                      <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.name}</TableCell>
+                        <TableCell>{item.type}</TableCell>
+                        <TableCell>{item.ifcType}</TableCell>
+                        <TableCell>
+                          {isMissing ? (
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                              <AlertTriangle size={12} className="mr-1" />
+                              Incomplete
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                              <Check size={12} className="mr-1" />
+                              Ready
+                            </span>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <IFCViewer data={processedData} />
         </div>
       </div>
 
