@@ -1,6 +1,6 @@
 
 import React, { useRef, useState, useEffect } from 'react';
-import { Box, Cube } from 'lucide-react';
+import { Box, Package } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
@@ -96,7 +96,7 @@ const IFCViewer: React.FC<IFCViewerProps> = ({ data }) => {
     <Card className="w-full h-full">
       <CardHeader className="pb-2">
         <CardTitle className="text-md flex items-center">
-          <Box className="mr-2 h-5 w-5 text-blue-500" /> 
+          <Package className="mr-2 h-5 w-5 text-blue-500" /> 
           IFC Preview
         </CardTitle>
       </CardHeader>
