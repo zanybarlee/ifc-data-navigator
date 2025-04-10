@@ -5,6 +5,7 @@ import DataPreview from './DataPreview';
 import MappingSuggestions from './MappingSuggestions';
 import MissingDataHandler from './MissingDataHandler';
 import ReviewConfirmation from './ReviewConfirmation';
+import StepIndicator from './StepIndicator';
 
 export {
   Layout,
@@ -12,5 +13,6 @@ export {
   DataPreview,
   MappingSuggestions,
   MissingDataHandler,
-  ReviewConfirmation
+  ReviewConfirmation,
+  StepIndicator
 };

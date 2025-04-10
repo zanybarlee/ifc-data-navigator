@@ -6,7 +6,8 @@ import {
   DataPreview, 
   MappingSuggestions, 
   MissingDataHandler, 
-  ReviewConfirmation 
+  ReviewConfirmation,
+  StepIndicator
 } from '@/components/ifc-mapper';
 
 const Index = () => {
@@ -22,6 +23,15 @@ const Index = () => {
   const [missingData, setMissingData] = useState<Record<string, string[]>>({});
   // Final processed data
   const [processedData, setProcessedData] = useState<any[]>([]);
+  
+  // Define the steps for our workflow
+  const steps = [
+    'File Upload',
+    'Data Preview',
+    'Mapping Suggestions',
+    'Missing Data',
+    'Review & Confirm'
+  ];
   
   // Handle file upload
   const handleFileUpload = (uploadedFiles: File[]) => {
